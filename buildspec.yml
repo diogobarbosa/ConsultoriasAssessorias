@@ -13,8 +13,8 @@ phases:
       - mvn install
   post_build:
     commands:
-      - tar -czvf target/ConsultoriasAssesorias-0.0.1.tar.gz appspec.yml --directory=target ConsultoriasAssesorias-0.0.1.jar
+      - tar -czvf target/ConsultoriasAssessorias-0.0.1.tar.gz appspec.yml --directory=target ConsultoriasAssessorias-0.0.1.jar
       - echo Build completed on `date`
 artifacts:
   files:
-    - target/ConsultoriasAssesorias-0.0.1.tar.gz
+    - target/ConsultoriasAssessorias-0.0.1.tar.gz

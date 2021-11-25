@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: ./ConsultoriasAssesorias-0.0.1.jar
+  - source: ./ConsultoriasAssessorias-0.0.1.jar
     destination: /tmp
 hooks:
   ApplicationStart:
