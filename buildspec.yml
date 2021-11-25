@@ -18,6 +18,6 @@ artifacts:
   files:
     - target/ConsultoriasAssessorias-0.0.1.jar
     - appspec.yml
-    - start_server.yml
-    - stop_server.yml
+    - start_server.sh
+    - stop_server.sh
   discard-paths: yes
