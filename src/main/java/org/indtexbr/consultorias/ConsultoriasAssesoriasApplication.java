@@ -1,4 +1,4 @@
-package org.indtexbr;
+package org.indtexbr.consultorias;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
