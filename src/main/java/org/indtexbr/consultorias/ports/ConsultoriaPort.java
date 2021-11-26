@@ -3,7 +3,7 @@ package org.indtexbr.consultorias.ports;
 import java.util.List;
 import java.util.UUID;
 
-import org.indtexbr.consultorias.entities.ConsultoriaEntity;
+import org.indtexbr.consultorias.application.entities.ConsultoriaEntity;
 
 public interface ConsultoriaPort {
 

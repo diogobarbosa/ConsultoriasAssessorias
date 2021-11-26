@@ -1,9 +1,11 @@
-package org.indtexbr.consultorias.adapters;
+package org.indtexbr.consultorias.adapters.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.indtexbr.consultorias.entities.ConsultoriaEntity;
+import org.indtexbr.consultorias.adapters.dto.ConsultoriaDTO;
+import org.indtexbr.consultorias.adapters.mappers.ConsultoriaMapper;
 import org.indtexbr.consultorias.ports.ConsultoriaPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,27 +26,33 @@ public class ConsultoriaAdapterImpl implements ConsultoriaAdapter{
 	private ConsultoriaPort normaUseCase;
 	
 	@GetMapping("/consultorias")
-	public ResponseEntity<List<ConsultoriaEntity>> consultarConsultorias() {
+	public ResponseEntity<List<ConsultoriaDTO>> consultarConsultorias() {
 
-		return ResponseEntity.ok(normaUseCase.consultarConsultorias());
+		List<ConsultoriaDTO> listaConsultoriaDTO = new ArrayList<ConsultoriaDTO>();
+		normaUseCase.consultarConsultorias().forEach( consultoriaEntity -> {
+						ConsultoriaDTO consultoriaDTO = ConsultoriaMapper.consultoriaEntityToConsultoriaDTO(consultoriaEntity);
+						listaConsultoriaDTO.add(consultoriaDTO);
+					});
+		
+		return ResponseEntity.ok(listaConsultoriaDTO);
 	}
 	
 	@GetMapping("/consultorias/{idConsultoria}")
-	public ResponseEntity<ConsultoriaEntity> consultarConsultoria(@PathVariable UUID idConsultoria) {
+	public ResponseEntity<ConsultoriaDTO> consultarConsultoria(@PathVariable UUID idConsultoria) {
 
-		return ResponseEntity.ok(normaUseCase.consultarConsultoria(idConsultoria));
+		return ResponseEntity.ok(ConsultoriaMapper.consultoriaEntityToConsultoriaDTO(normaUseCase.consultarConsultoria(idConsultoria)));
 	}
 
 	@PostMapping("/consultorias")
-	public ResponseEntity<Void> inserirConsultoria(@RequestBody ConsultoriaEntity consultoria) {
+	public ResponseEntity<Void> inserirConsultoria(@RequestBody ConsultoriaDTO consultoria) {
 		
-		normaUseCase.inserirConsultoria(consultoria);
+		normaUseCase.inserirConsultoria(ConsultoriaMapper.consultoriaDTOToConsultoriaEntity(consultoria));
 		return ResponseEntity.noContent().build();
 	}
 
 	@PutMapping("/consultorias")
-	public ResponseEntity<Void> alterarConsultoria(@RequestBody ConsultoriaEntity consultoria) {
-		normaUseCase.alterarConsultoria(consultoria);
+	public ResponseEntity<Void> alterarConsultoria(@RequestBody ConsultoriaDTO consultoria) {
+		normaUseCase.alterarConsultoria(ConsultoriaMapper.consultoriaDTOToConsultoriaEntity(consultoria));
 		return ResponseEntity.noContent().build();
 	}
 

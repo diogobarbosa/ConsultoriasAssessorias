@@ -1,10 +1,10 @@
-package org.indtexbr.consultorias.usecases;
+package org.indtexbr.consultorias.application.usecases;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.indtexbr.consultorias.entities.ConsultoriaEntity;
+import org.indtexbr.consultorias.application.entities.ConsultoriaEntity;
 import org.indtexbr.consultorias.ports.ConsultoriaPort;
 import org.indtexbr.consultorias.ports.ConsultoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
