@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.indtexbr.consultorias.adapters.dto.ConsultoriaDTO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 public interface ConsultoriaAdapter{
 
@@ -14,7 +15,7 @@ public interface ConsultoriaAdapter{
 
 	public ResponseEntity<ConsultoriaDTO> consultarConsultoria(UUID idConsultoria);
 	
-	public ResponseEntity<Void> alterarConsultoria(ConsultoriaDTO consultoria);
+	public ResponseEntity<Void> alterarConsultoria(@PathVariable UUID idConsultoria, ConsultoriaDTO consultoria);
 	
 	public ResponseEntity<Void> deletarConsultoria(UUID idConsultoria);
 }

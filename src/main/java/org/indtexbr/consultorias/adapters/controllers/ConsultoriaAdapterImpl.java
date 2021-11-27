@@ -23,13 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class ConsultoriaAdapterImpl implements ConsultoriaAdapter{
 
 	@Autowired
-	private ConsultoriaPort normaUseCase;
+	private ConsultoriaPort consultoriaUseCase;
 	
 	@GetMapping("/consultorias")
 	public ResponseEntity<List<ConsultoriaDTO>> consultarConsultorias() {
 
 		List<ConsultoriaDTO> listaConsultoriaDTO = new ArrayList<ConsultoriaDTO>();
-		normaUseCase.consultarConsultorias().forEach( consultoriaEntity -> {
+		consultoriaUseCase.consultarConsultorias().forEach( consultoriaEntity -> {
 						ConsultoriaDTO consultoriaDTO = ConsultoriaMapper.consultoriaEntityToConsultoriaDTO(consultoriaEntity);
 						listaConsultoriaDTO.add(consultoriaDTO);
 					});
@@ -40,26 +40,28 @@ public class ConsultoriaAdapterImpl implements ConsultoriaAdapter{
 	@GetMapping("/consultorias/{idConsultoria}")
 	public ResponseEntity<ConsultoriaDTO> consultarConsultoria(@PathVariable UUID idConsultoria) {
 
-		return ResponseEntity.ok(ConsultoriaMapper.consultoriaEntityToConsultoriaDTO(normaUseCase.consultarConsultoria(idConsultoria)));
+		return ResponseEntity.ok(ConsultoriaMapper.consultoriaEntityToConsultoriaDTO(consultoriaUseCase.consultarConsultoria(idConsultoria)));
 	}
 
 	@PostMapping("/consultorias")
 	public ResponseEntity<Void> inserirConsultoria(@RequestBody ConsultoriaDTO consultoria) {
 		
-		normaUseCase.inserirConsultoria(ConsultoriaMapper.consultoriaDTOToConsultoriaEntity(consultoria));
+		consultoriaUseCase.inserirConsultoria(ConsultoriaMapper.consultoriaDTOToConsultoriaEntity(consultoria));
 		return ResponseEntity.noContent().build();
 	}
 
-	@PutMapping("/consultorias")
-	public ResponseEntity<Void> alterarConsultoria(@RequestBody ConsultoriaDTO consultoria) {
-		normaUseCase.alterarConsultoria(ConsultoriaMapper.consultoriaDTOToConsultoriaEntity(consultoria));
+	@PutMapping("/consultorias/{idConsultoria}")
+	public ResponseEntity<Void> alterarConsultoria(@PathVariable UUID idConsultoria, @RequestBody ConsultoriaDTO consultoria) {
+		
+		consultoria.setIdConsultoria(idConsultoria);
+		consultoriaUseCase.alterarConsultoria(ConsultoriaMapper.consultoriaDTOToConsultoriaEntity(consultoria));
 		return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/consultorias/{idConsultoria}")
 	public ResponseEntity<Void> deletarConsultoria(@PathVariable UUID idConsultoria) {
 
-		normaUseCase.deletarConsultoria(idConsultoria);
+		consultoriaUseCase.deletarConsultoria(idConsultoria);
 		return  ResponseEntity.noContent().build();
 	}
 	
